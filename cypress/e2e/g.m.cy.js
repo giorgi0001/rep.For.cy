@@ -4,6 +4,7 @@
 describe('template spec', () => {
   it('Register User', () => {
     cy.visit('https://automationexercise.com/')
+  
       // 1. Launch browser
 
 // 2. Navigate to url 'http://automationexercise.com'
@@ -15,10 +16,13 @@ cy.contains('New User Signup!').should('be.visible')
 // 6. Enter name and email address
 const randomNumber = Math.random().toString().slice(2, 8);
 const email = `giorgi${randomNumber}@gmail.com`;
-
+const password = 'test1234'
 cy.get('[data-qa="signup-name"]').type('test01');
 cy.get('[data-qa="signup-email"]').type(email);
-
+cy.writeFile('cypress/fixtures/userData.json', {
+  email: email,
+  password: password
+});
 
 // 7. Click 'Signup' button
 cy.get('[data-qa="signup-button"]').click()
@@ -57,9 +61,7 @@ cy.get('[data-qa="continue-button"]').click()
 // 16. Verify that 'Logged in as username' is visible
 cy.get(':nth-child(10) > a').should('be.visible')
 // 17. Click 'Delete Account' button
-cy.get('.shop-menu > .nav > :nth-child(5) > a').click()
 // 18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
-cy.get('b').should('be.visible')
-cy.get('[data-qa="continue-button"]').click()
-  })
+
+  }) 
 })
